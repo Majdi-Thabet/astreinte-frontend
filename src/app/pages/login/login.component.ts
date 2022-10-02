@@ -9,9 +9,6 @@ import { User } from '../../models/user';
 import { ToastrService } from 'ngx-toastr';
 import { HttpBackend, HttpResponse } from '@angular/common/http';
 
-
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

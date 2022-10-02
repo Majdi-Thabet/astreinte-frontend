@@ -8,9 +8,9 @@ describe('ConfigAstreinteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfigAstreinteComponent ]
+      declarations: [ConfigAstreinteComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ConfigAstreinteComponent);
     component = fixture.componentInstance;

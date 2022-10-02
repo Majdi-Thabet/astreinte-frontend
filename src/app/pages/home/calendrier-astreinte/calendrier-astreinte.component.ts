@@ -1,8 +1,7 @@
-import { Component,ElementRef,OnInit, ViewChild } from '@angular/core';
-import { CalendarOptions, defineFullCalendarElement, FullCalendarElement,DateSelectArg,EventClickArg,EventApi} from '@fullcalendar/web-component';
-import { INITIAL_EVENTS ,createEventId} from './event-utils';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { INITIAL_EVENTS, createEventId } from './event-utils';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {formatDate} from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, formatDate } from '@fullcalendar/core';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 
 defineFullCalendarElement();
@@ -21,13 +20,13 @@ let str = formatDate(new Date(), {
 
 export class CalendrierAstreinteComponent implements OnInit {
   calendarVisible = true;
-    // references the #calendar in the template
-    @ViewChild('calendar') calendarRef: ElementRef<FullCalendarElement>;
+  // references the #calendar in the template
+  @ViewChild('calendar') calendarRef: ElementRef<any>;
   calendarOptions: CalendarOptions = {
- 
-   
-    plugins: [dayGridPlugin,resourceTimelinePlugin],
-    
+
+
+    plugins: [dayGridPlugin, resourceTimelinePlugin],
+
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -44,7 +43,7 @@ export class CalendrierAstreinteComponent implements OnInit {
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
     schedulerLicenseKey: 'XXX'
-   
+
   };
 
   currentEvents: EventApi[] = [];
@@ -86,27 +85,32 @@ export class CalendrierAstreinteComponent implements OnInit {
   }
 
 
-  
- 
+
+
   toggleWeekends() {
     // make a copy while overriding some values
     this.calendarOptions = {
       ...this.calendarOptions,
       weekends: !this.calendarOptions.weekends,
-    }}
-   
-    someMethod() {
-      let calendarApi = this.calendarRef.nativeElement.getApi();
-      calendarApi.next();
     }
-  constructor() {
-    
-console.log(str);
+  }
 
-   }
+  someMethod() {
+    let calendarApi = this.calendarRef.nativeElement.getApi();
+    calendarApi.next();
+  }
+  constructor() {
+
+    console.log(str);
+
+  }
 
   ngOnInit(): void {
 
   }
 }
- 
+
+function defineFullCalendarElement() {
+  throw new Error('Function not implemented.');
+}
+

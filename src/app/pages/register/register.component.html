@@ -34,17 +34,18 @@
                 </div>
 
               </div> -->
- <!-- ngModel required  -->
+              <!-- ngModel required  -->
 
               <!-- <div class="form-group">
                 <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username">
               </div> -->
 
               <div class="form-group">
-                <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Nom d'utilisateur"
-                  formControlName="username">
+                <input type="text" class="form-control form-control-lg" id="exampleInputEmail1"
+                  placeholder="Nom d'utilisateur" formControlName="username">
                 <div *ngIf="f['username'].touched && f['username'].invalid">
-                  <small *ngIf="f['username'].errors?.['required']" class="text-danger">Nom d'utilisateur est obligatoire<br></small>
+                  <small *ngIf="f['username'].errors?.['required']" class="text-danger">Nom d'utilisateur est
+                    obligatoire<br></small>
 
                 </div>
 
@@ -78,13 +79,13 @@
               <div class="form-group">
 
                 <select formControlName="departement" class="form-control form-control-lg">
-                  <option value="" disabled selected hidden >Departement</option>
+                  <option value="" disabled selected hidden>Departement</option>
                   <option *ngFor="let departement of departements" [ngValue]="departement.id">
                     {{ departement.departementName }}
-                    
+
                   </option>
                 </select>
-              </div> 
+              </div>
 
 
               <!-- <div class="form-group">
@@ -105,7 +106,8 @@
                 <input type="password" class="form-control form-control-lg" id="exampleInputPassword1"
                   placeholder="Mot de Passe" formControlName="password">
                 <div *ngIf="f['password'].touched && f['password'].invalid">
-                  <small *ngIf="f['password'].errors?.['required']" class="text-danger">Mot de Passe est obligatoire<br></small>
+                  <small *ngIf="f['password'].errors?.['required']" class="text-danger">Mot de Passe est
+                    obligatoire<br></small>
                   <small *ngIf="f['password'].errors?.['minlength']" class="text-danger">Mot de Passe doit contenir 6
                     caractères au moins</small>
                 </div>
@@ -117,7 +119,8 @@
                 <input type="password" class="form-control form-control-lg" id="exampleInputrePassword1"
                   formControlName="repassword" placeholder="Repeter le Mot de Passe">
                 <div *ngIf="f['repassword'].touched && f['repassword'].invalid">
-                  <small *ngIf="f['repassword'].errors?.['required']" class="text-danger">Repeter le Mot de Passe est obligatoire<br></small>
+                  <small *ngIf="f['repassword'].errors?.['required']" class="text-danger">Repeter le Mot de Passe est
+                    obligatoire<br></small>
                 </div>
                 <div *ngIf="f['repassword'].valid && f['repassword'].value != f['password'].value" class="text-danger">
                   Le mot de passe saisi ne correspond pas
@@ -129,7 +132,8 @@
               <div class="mt-3">
                 <!-- <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"  href="../../index.html" >SIGN UP</a> -->
                 <!-- href="../../index.html" -->
-                <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">S'Inscrire
+                <button type="submit"
+                  class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">S'Inscrire
                 </button>
                 <!-- [disabled]="registerForm.invalid" -->
               </div>
