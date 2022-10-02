@@ -1,0 +1,112 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Collaborateur List</h4>
+                    <div *ngIf="peopleList.length == 0" class="alert alert-warning">No people found</div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped" *ngIf="peopleList.length > 0">
+                            <!-- <div *ngIf="peopleList.length == 0" class="alert alert-warning">No people found</div> -->
+                            <!-- <table *ngIf="peopleList.length > 0" class="table"></table>
+    -->
+                            <thead>
+                                <tr>
+
+                                    <th>username</th>
+                                    <th>nom</th>
+                                    <th>prenom</th>
+                                    <th>email</th>
+                                    <th>role</th>
+                                    <!-- <th>nom</th>
+            <th>prenom</th> -->
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- person howa json object  fih id username email role-->
+                                <tr *ngFor="let person of peopleList ; let i = index">
+
+                                    <td>{{ person.username}}</td>
+                                    <td>{{ person.nom}}</td>
+                                    <td>{{ person.prenom}}</td>
+                                    <td>{{ person.email}}</td>
+                                    <td>{{ person.roles[0].roleName}}</td>
+                                    <!-- [0]yo9sed bech y acceder lel lista . bech yemchi lele json 5ater hiya lista fi westha json wou fi wwestha json e5er approles wou fiwestha rolename -->
+                                    <td>
+                                        <button class="btn btn-info" data-toggle="modal" data-target="#details"
+                                            (click)="recuper(person.id,person.nom,person.prenom,person.sexe,person.email,person.poste,person?.department?.departementName,person.role,person.username)">Details</button>
+                                        <button class="btn btn-danger mx-3" (click)="delete(person.id)">Delete</button>
+
+                                        <button class="btn btn-warning"
+                                            [routerLink]="['/home/update-user',person.id]">Update
+                                        </button>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Details Collaborateur</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center">
+
+                        <div class="col-md-12">
+
+                            <div class="card p-3 py-4">
+
+                                <div class="text-center">
+                                    <img *ngIf="user.sexe==='MEN'" src="../../assets/images/man.png" width="100"
+                                        class="rounded-circle">
+                                    <img *ngIf="user.sexe==='WOMEN'" src="../../assets/images/woman.png" width="100"
+                                        class="rounded-circle">
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <div class="buttons">
+
+                                        <button class="btn btn-outline-primary px-4">{{user.poste}}</button>
+
+                                    </div>
+                                    <h5 class="mt-2 mb-0">{{user.nom}} &nbsp; {{user.prenom}}</h5>
+
+                                    <h5 class="mt-2 mb-0">{{user.email}}</h5>
+                                    <h5 class="mt-2 mb-0 primary">{{user.department}}</h5>
+                                    <!-- <span>UI/UX Designer</span> -->
+
+
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>

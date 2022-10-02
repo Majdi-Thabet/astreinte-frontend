@@ -1,0 +1,131 @@
+<!-- <p>add-user works!</p> -->
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary my-3" [routerLink]="['/home/people-list']">Back</button>
+
+            <h3>Details User</h3>
+        </div>
+    </div>
+    <div class="container mt-5">
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-7">
+
+                <div class="card p-3 py-4">
+
+                    <div class="text-center">
+                        <img *ngIf="user.sexe==='MEN'" src="../../assets/images/man.png" width="100" class="rounded-circle">
+                        <img *ngIf="user.sexe==='WOMEN'" src="../../assets/images/woman.png" width="100" class="rounded-circle">
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <div class="buttons">
+
+                            <button class="btn btn-outline-primary px-4">{{user.poste}}</button>
+
+                        </div>
+                        <h5 class="mt-2 mb-0">{{user.nom}} &nbsp; {{user.prenom}}</h5>
+
+                        <h5 class="mt-2 mb-0">{{user.email}}</h5>
+                        <h5 class="mt-2 mb-0">{{user.sexe}}</h5>
+                        <!-- <span>UI/UX Designer</span> -->
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+
+<!-- <form [formGroup]="detailsUserForm" >
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="nom">Nom :</label>
+                <input type="text" name="nom" id="nom"  class="form-control"
+                placeholder="Nom"
+                formControlName="nom" >
+                <div *ngIf="f['nom'].touched && f['nom'].invalid">
+                    <small *ngIf="f['nom'].errors?.['required']" class="text-danger">nom is required<br></small>
+                    <small *ngIf="f['nom'].errors?.['pattern']" class="text-danger">Invalid Nom<br></small>
+                    <small *ngIf="f['nom'].errors?.['minlength']" class="text-danger">Nom must contain two characters at least</small>
+                </div>
+            </div>
+        </div>
+        
+       
+
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="prenom">Prenom :</label>
+                <input type="text" name="prenom" id="prenom"  class="form-control"
+                placeholder="Prenom"
+                formControlName="prenom"
+                
+                >
+                <div *ngIf="f['prenom'].touched && f['prenom'].invalid">
+                    <small *ngIf="f['prenom'].errors?.['required']" class="text-danger">prenom is required<br></small>
+                    <small *ngIf="f['prenom'].errors?.['pattern']" class="text-danger">Invalid Prenom<br></small>
+                    <small *ngIf="f['prenom'].errors?.['minlength']" class="text-danger">Prenom must contain two characters at least</small>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="email">Email :</label>
+                <input type="email" name="email" id="email"  class="form-control"
+                placeholder="Email"
+                formControlName="email"
+                
+                >
+                <div *ngIf="f['email'].touched && f['email'].invalid">
+                    <small *ngIf="f['email'].errors?.['required']" class="text-danger">Email is required<br></small>
+                    <small *ngIf="f['email'].errors?.['email']" class="text-danger">Invalid Email<br></small>
+                  </div>
+
+            </div>
+        </div>
+
+    
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="poste">Poste :</label>
+                <input type="text" name="poste" id="poste"  class="form-control"
+                
+                placeholder="Poste"
+                formControlName="poste" >
+                <div *ngIf="f['poste'].touched && f['poste'].invalid">
+                    <small *ngIf="f['poste'].errors?.['required']" class="text-danger">poste is required<br></small>
+                    <small *ngIf="f['poste'].errors?.['pattern']" class="text-danger">Invalid Poste<br></small>
+                    <small *ngIf="f['poste'].errors?.['minlength']" class="text-danger">Poste must contain two characters at least</small>
+                </div>
+            </div>
+        </div> </form> -->
+
+<!-- <div class="form-row">
+            <div class="form-group col">
+                
+                <input type="submit" value="Update User" [disabled]="detailsUserForm.invalid" class="btn btn-warning" >
+
+            </div>
+        </div> -->

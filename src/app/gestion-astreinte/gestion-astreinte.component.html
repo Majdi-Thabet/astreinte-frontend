@@ -1,0 +1,460 @@
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Gestion des Astreintes</h4>
+            <!-- <p class="card-description">
+          Add class <code>.table</code>
+        </p> -->
+
+
+
+            <div class="container mt-5" style="max-width: 550px;">
+
+                <div class="form-group">
+                    <input type="text" class="form-control mb-4" placeholder="Rechercher" [(ngModel)]="inputsearch"
+                        id="listSearch">
+                </div>
+                <!--           
+            <div class="card mb-1" *ngFor="let collaborateur of collaborateurs | searchFilter: query">
+              <div class="card-body">
+                <h5 class="card-title">{{collaborateur.nom}}</h5>
+                
+              </div>
+            </div> -->
+
+            </div>
+
+            <button type="submit" class ="pull-right" class="btn btn-primary my-3" style="margin-right: 0.5rem !important;"
+                data-toggle="modal" data-target="#add">Ajouter Astreinte</button>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Collaborateur</th>
+                            <th>Durée Astreinte</th>
+                            <th>Date Début</th>
+                            <th>Date Fin</th>
+                            <th>Prime</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr
+                            *ngFor="let astreinte of astreinteList | searchFilter: inputsearch |paginate:{itemsPerPage: 5,currentPage:p}">
+                            <!-- <h5>{{astreinte.collaborateur.prenom}}</h5> -->
+                            <td>{{ astreinte.collaborateur.nom}}&nbsp;{{astreinte.collaborateur.prenom}}</td>
+                            <td>{{ astreinte.dureeastreinte}}</td>
+                            <td>{{ astreinte.datedebut}}</td>
+                            <td>{{ astreinte.datefin}}</td>
+                            <td>{{ astreinte.prime}}</td>
+
+                            <!-- <td>{{ astreinte.status}}</td> -->
+
+                            <!-- <td>{{astreinte.Action}}</td> -->
+
+                            <td>
+                                <label class="badge" [ngClass]="{' badge-success':astreinte.status == 'PASSEE',
+                        ' badge-warning':astreinte.status=== 'EN_ATTENTE',
+                        ' badge-danger':astreinte.status === 'ANNULEE',
+                        ' badge-info':astreinte.status=== 'ENCOURS'
+                      }">{{astreinte.status}}</label>
+                            </td>
+
+                            <td>
+                                <!-- <i class="mdi mdi-eye" style="font-size: 25px;"></i> -->
+                                <i class="mdi mdi-pencil" style="font-size: 25px; cursor:pointer ;color:green"
+                                    data-toggle="modal" data-target="#update" (click)="recuper(astreinte.id,
+                    astreinte.type,astreinte.datedebut,
+                    astreinte.datefin,astreinte.dureeastreinte,
+                    astreinte.intervention,astreinte.prime,astreinte.status,astreinte.raison
+                    )"></i>
+                                <i (click)="delete(astreinte.id)" class="mdi mdi-delete"
+                                    style="font-size: 25px;cursor:pointer ;color: red;"></i>
+                            </td>
+                            <td></td>
+                            <!-- <td><label class="badge badge-warning">In progress</label></td> -->
+
+                    </tbody>
+                </table>
+
+                <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter Astreinte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+
+                    <div class="col-md-12">
+
+                        <div class="card p-3 py-4">
+
+                            <form [formGroup]="addAstreinteForm" (ngSubmit)="addAstreinte()">
+
+                                <div class="form-group">
+                                    <label for="type">Liste Collaborateurs :</label>
+                                    <select formControlName="collaborateur" class="form-control form-control-lg"
+                                        placeholder="Liste collaborateurs">
+                                        <option value="" disabled selected hidden>Liste Collaborateurs</option>
+                                        <option *ngFor="let collaborateur of collaborateurs"
+                                            [ngValue]="collaborateur.id">
+                                            {{ collaborateur.nom }}&nbsp;{{collaborateur.prenom}}
+                                        </option>
+                                    </select>
+                                </div>
+
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="type">Type :</label>
+                                        <input type="text" name="nom" id="type" class="form-control" placeholder="Type"
+                                            formControlName="type">
+                                        <div *ngIf="m['type'].touched && m['type'].invalid">
+                                            <small *ngIf="m['type'].errors?.['required']" class="text-danger">type est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datedebut">Datedebut :</label>
+                                        <input type="date" name="datedebut" id="datedebut" class="form-control"
+                                            placeholder="Datedebut" formControlName="datedebut">
+                                        <div *ngIf="m['datedebut'].touched && m['datedebut'].invalid">
+                                            <small *ngIf="m['datedebut'].errors?.['required']"
+                                                class="text-danger">datedebut est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datefin">Datefin :</label>
+                                        <input type="date" name="datefin" id="datefin" class="form-control"
+                                            placeholder="Datefin" formControlName="datefin">
+                                        <div *ngIf="m['datefin'].touched && m['datefin'].invalid">
+                                            <small *ngIf="m['datefin'].errors?.['required']" class="text-danger">datefin
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="dureeastreinte">Dureeastreinte :</label>
+                                        <input type="number" name="dureeastreinte" id="dureeastreinte"
+                                            class="form-control" placeholder="Dureeastreinte"
+                                            formControlName="dureeastreinte">
+                                        <div *ngIf="m['dureeastreinte'].touched && m['dureeastreinte'].invalid">
+                                            <small *ngIf="m['dureeastreinte'].errors?.['required']"
+                                                class="text-danger">dureeastreinte est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="intervention">Intervention :</label>
+                                        <input type="text" name="intervention" id="intervention" class="form-control"
+                                            placeholder="Intervention" formControlName="intervention">
+                                        <div *ngIf="m['intervention'].touched && m['intervention'].invalid">
+                                            <small *ngIf="m['intervention'].errors?.['required']"
+                                                class="text-danger">intervention est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="prime">Prime :</label>
+                                        <input type="number" name="prime" id="prime" class="form-control"
+                                            placeholder="Prime" formControlName="prime">
+                                        <div *ngIf="m['prime'].touched && m['prime'].invalid">
+                                            <small *ngIf="m['prime'].errors?.['required']" class="text-danger">prime est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="status">Status :</label>
+                                        <select name="status" id="status" class="form-control" placeholder="Status"
+                                            formControlName="status">
+                                            <!-- <input type="text" name="status" id="status" class="form-control"
+                                            placeholder="Status" formControlName="status"> -->
+
+                                            <option value="" disabled selected hidden>Status</option>
+                                            <option value="EN_ATTENTE">EN_ATTENTE</option>
+                                            <option value="PASSEE">PASSEE</option>
+                                            <option value="ANNULEE">ANNULEE</option>
+                                            <option value="ENCOURS">ENCOURS</option>
+                                        </select>
+                                        <div *ngIf="m['status'].touched && m['status'].invalid">
+                                            <small *ngIf="m['status'].errors?.['required']" class="text-danger">status
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!-- <div class="form-group">
+
+                                    <select formControlName="status" class="form-control form-control-lg">
+                                      <option value="" disabled selected hidden>Department</option>
+                                      <option *ngFor="let departement of departements" [ngValue]="departement.id">
+                                        {{ departement.departementName }}
+                                        
+                                      </option>
+                                    </select>
+                                </div>  -->
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="raison">Raison :</label>
+                                        <input type="text" name="raison" id="raison" class="form-control"
+                                            placeholder="Raison" formControlName="raison">
+                                        <div *ngIf="m['raison'].touched && m['raison'].invalid">
+                                            <small *ngIf="m['raison'].errors?.['required']" class="text-danger">raison
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col">
+
+                                        <input type="submit" value="Ajouter Astreinte" class="btn btn-info">
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <!-- <button type="button" class="btn btn-primary">Add</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier Astreinte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+
+                    <div class="col-md-12">
+
+                        <div class="card p-3 py-4">
+
+                            <form [formGroup]="updateAstreinteForm">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="type">Type :</label>
+                                        <input type="text" name="type" id="type" class="form-control" placeholder="Type"
+                                            formControlName="type">
+                                        <div *ngIf="f['type'].touched && f['type'].invalid">
+                                            <small *ngIf="f['type'].errors?.['required']" class="text-danger">type est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datedebut">Datedebut :</label>
+                                        <input type="date" name="datedebut" id="datedebut" class="form-control"
+                                            placeholder="Datedebut" formControlName="datedebut">
+                                        <div *ngIf="f['datedebut'].touched && f['datedebut'].invalid">
+                                            <small *ngIf="f['datedebut'].errors?.['required']"
+                                                class="text-danger">datedebut est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datefin">Datefin :</label>
+                                        <input type="date" name="datefin" id="datefin" class="form-control"
+                                            placeholder="Datefin" formControlName="datefin">
+                                        <div *ngIf="f['datefin'].touched && f['datefin'].invalid">
+                                            <small *ngIf="f['datefin'].errors?.['required']" class="text-danger">datefin
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="dureeastreinte">Dureeastreinte :</label>
+                                        <input type="number" name="dureeastreinte" id="dureeastreinte"
+                                            class="form-control" placeholder="Dureeastreinte"
+                                            formControlName="dureeastreinte">
+                                        <div *ngIf="f['dureeastreinte'].touched && f['dureeastreinte'].invalid">
+                                            <small *ngIf="f['dureeastreinte'].errors?.['required']"
+                                                class="text-danger">dureeastreinte est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="intervention">Intervention :</label>
+                                        <input type="text" name="intervention" id="intervention" class="form-control"
+                                            placeholder="Intervention" formControlName="intervention">
+                                        <div *ngIf="f['intervention'].touched && f['intervention'].invalid">
+                                            <small *ngIf="f['intervention'].errors?.['required']"
+                                                class="text-danger">intervention est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="prime">Prime :</label>
+                                        <input type="number" name="prime" id="prime" class="form-control"
+                                            placeholder="Prime" formControlName="prime">
+                                        <div *ngIf="f['prime'].touched && f['prime'].invalid">
+                                            <small *ngIf="f['prime'].errors?.['required']" class="text-danger">prime est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="status">Status :</label>
+                                        <select name="status" id="status" class="form-control" placeholder="Status"
+                                            formControlName="status">
+                                            <!-- <input type="text" name="status" id="status" class="form-control"
+                                            placeholder="Status" formControlName="status"> -->
+
+                                            <option value="" disabled selected hidden>Status</option>
+                                            <option value="EN_ATTENTE">EN_ATTENTE</option>
+                                            <option value="PASSEE">PASSEE</option>
+                                            <option value="ANNULEE">ANNULEE</option>
+                                            <option value="ENCOURS">ENCOURS</option>
+                                        </select>
+                                        <div *ngIf="f['status'].touched && f['status'].invalid">
+                                            <small *ngIf="f['status'].errors?.['required']" class="text-danger">status
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="status">Status :</label>
+                                        <input type="text" name="status" id="status" class="form-control"
+                                            placeholder="Status" formControlName="status" value="{{astreinte.status}}">
+                                        <div *ngIf="f['status'].touched && f['status'].invalid">
+                                            <small *ngIf="f['status'].errors?.['required']" class="text-danger">status
+                                                is required<br></small>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="raison">Raison :</label>
+                                        <input type="text" name="raison" id="raison" class="form-control"
+                                            placeholder="Raison" formControlName="raison">
+                                        <div *ngIf="f['raison'].touched && f['raison'].invalid">
+                                            <small *ngIf="f['raison'].errors?.['required']" class="text-danger">raison
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col">
+
+                                        <input type="submit" (click)="updateAstreinte()" value="Modifier Astreinte"
+                                            class="btn btn-warning">
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary">Modifier</button>
+            </div>
+        </div>
+    </div>
+
+</div>

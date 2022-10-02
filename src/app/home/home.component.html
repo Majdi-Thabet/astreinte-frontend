@@ -1,0 +1,35 @@
+<!-- <p>home works!</p>
+<button [routerLink]="['/login']">Login</button>
+<button [routerLink]="['/register']">Register</button> -->
+
+
+
+   
+
+
+
+
+
+<div class="container-scroller">
+  <!-- partial:partials/_navbar.html -->
+
+  <!-- partial -->
+  <div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.html -->
+   
+    <app-sidebar></app-sidebar>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.html -->
+    <app-navbar></app-navbar>
+    <!-- partial -->
+    <div class="main-panel">
+      <router-outlet></router-outlet>
+      <!-- content-wrapper ends -->
+      <!-- partial:partials/_footer.html -->
+      <app-footer></app-footer>
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+  </div>   
+  <!-- page-body-wrapper ends -->
+</div>

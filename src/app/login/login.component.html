@@ -1,0 +1,168 @@
+<div class="container-scroller">
+	<div class="container-fluid page-body-wrapper full-page-wrapper">
+		<div class="content-wrapper d-flex align-items-center auth px-0">
+			<div class="row w-100 mx-0">
+				<div class="col-lg-4 mx-auto">
+					<div class="auth-form-light text-left py-8 px-5 px-sm-7">
+						<div class="brand-logo">
+							<img src="assets/images/proxym.png" alt="logo">
+						</div>
+						<h4>Bonjour! Commençons</h4>
+						<h6 class="font-weight-light">Connectez-vous pour continuer.</h6>
+						<form [formGroup]="loginForm" class="pt-3">
+							<div class="form-group">
+								<!-- <label>Username : </label> -->
+								<input type="text" formControlName="username" class="form-control form-control-lg"
+									id="exampleInputEmail1" placeholder="Nom d'Utilisateur" class="form-control"
+									[ngClass]="{ 'is-invalid': submitted && f['username'].errors }">
+								<div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+									<div *ngIf="f['username'].errors['required']">Nom d'utilisateur est obligatoire</div>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<!-- <label>Password : </label> -->
+								<input type="password" class="form-control form-control-lg" formControlName="password"
+									id="exampleInputPassword1" placeholder="Mot de Passe"
+									[ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+								<div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+									<div *ngIf="f['password'].errors['required']">Mot de Passe est obligatoire</div>
+									<!-- <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div> -->
+								</div>
+
+							</div>
+							<div class="form-group">
+
+								<div class="mt-3">
+									<a (click)="onSubmit()"
+										class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">S'Identifier</a>
+								</div>
+							</div>
+
+							<div class="my-2 d-flex justify-content-between align-items-center">
+
+							</div>
+
+							<div class="text-center mt-4 font-weight-light">
+								Vous n'avez pas de compte ? <a routerLink="/register" class="text-primary">Créer</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- content-wrapper ends -->
+	</div>
+	<!-- page-body-wrapper ends -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a [routerLink]="['/']"><img [src]="imageUrl" alt="proxym logo" width="200px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </nav> -->
+
+<!-- <app-navbar></app-navbar> -->
+<!-- main app container -->
+<!-- <div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<h3>Login Form</h3>
+				<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+
+					<div class="form-group">
+						<label>Email Address</label>
+						<input type="text" formControlName="username" class="form-control"
+							[ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+						<div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+							<div *ngIf="f['username'].errors['required']">Email is required</div>
+							<div *ngIf="f['username'].errors['email']">Email must be a valid email address</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" formControlName="password" class="form-control"
+							[ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+						<div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+							<div *ngIf="f['password'].errors['required']">Password is required</div>
+							<div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<button class="btn btn-primary">Login</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+<!-- 
+<app-footer></app-footer> -->
+
+<!-- <div class="container my-5" >
+	<form>
+		<div class="mb-3">
+		  <label for="exampleInputEmail1" class="form-label">Email address</label>
+		  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+		</div>
+		<div class="mb-3">
+		  <label for="exampleInputPassword1" class="form-label">Password</label>
+		  <input type="password" class="form-control" id="exampleInputPassword1">
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Login</button>
+	  </form>
+</div> -->
+
+
+
+<!-- <div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form class="login">
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input type="text" class="login__input" placeholder="User name / Email">
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input type="password" class="login__input" placeholder="Password">
+				</div>
+				<button class="button login__submit">
+					<span class="button__text">Log In Now</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>				
+			</form>
+			<div class="social-login">
+				<h3>log in via</h3>
+				<div class="social-icons">
+					<a href="#" class="social-login__icon fab fa-instagram"></a>
+					<a href="#" class="social-login__icon fab fa-facebook"></a>
+					<a href="#" class="social-login__icon fab fa-twitter"></a>
+				</div>
+			</div>
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>		
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>		
+	</div> -->

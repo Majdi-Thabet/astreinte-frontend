@@ -1,0 +1,460 @@
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Gestion Configurations des Astreintes</h4>
+            <!-- <p class="card-description">
+          Add class <code>.table</code>
+        </p> -->
+        <div class="container mt-5" style="max-width: 550px;">
+
+            <div class="form-group">
+                <input type="text" class="form-control mb-4" placeholder="Rechercher" [(ngModel)]="inputsearch1"
+                    id="listSearch">
+            </div>
+            <!--           
+        <div class="card mb-1" *ngFor="let collaborateur of collaborateurs | searchFilter: query">
+          <div class="card-body">
+            <h5 class="card-title">{{collaborateur.nom}}</h5>
+            
+          </div>
+        </div> -->
+
+        </div>
+            <button type="submit" class="btn btn-primary my-3" style="margin-right: 0.5rem !important;"
+                data-toggle="modal" data-target="#add">Ajouter Config Astreinte</button>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Collaborateur</th>
+                            <th>Durée Config Astreinte</th>
+                            <th>Periode Astreinte</th>
+                            <th>Nombre Collaborateurs</th>
+                            <th>Nombre Astreintes</th>
+                            <th>Astreinte par collaborateur</th>
+                            <th>Date Début Config</th>
+                            <th>Date Fin Config</th>
+                            <th>Actions</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let configastreinte of configastreinteList| searchFilter1: inputsearch1 |paginate:{itemsPerPage: 5,currentPage:p1}" >
+                            <td>{{ configastreinte.collaborateur.nom}}</td>
+                            <td>{{ configastreinte.dureeconfigastreinte}}</td>
+                            <td>{{ configastreinte.periodeastreinte}}</td>
+                            <td>{{ configastreinte.nombrecollaborateurs}}</td>
+                            <td>{{ configastreinte.nombreastreintes}}</td>
+                            <td>{{ configastreinte.astreintebycollaborateur}}</td>
+                            <td>{{ configastreinte.datedebutconfig}}</td>
+                            <td>{{ configastreinte.datefinconfig}}</td>
+
+                            <td>
+                                <!-- <i class="mdi mdi-eye" style="font-size: 25px;"></i> -->
+                                <i class="mdi mdi-pencil" style="font-size: 25px; cursor:pointer ;color:green"
+                                    data-toggle="modal" data-target="#update"
+                                    (click)="recuper(configastreinte.id,
+                                    configastreinte.dureeconfigastreinte,configastreinte.periodeastreinte,
+                                    configastreinte.nombrecollaborateurs,configastreinte.nombreastreintes,
+                                    configastreinte.astreintebycollaborateur,configastreinte.datedebutconfig,configastreinte.datefinconfig)">
+                                </i>
+                                <i (click)="delete(configastreinte.id)" class="mdi mdi-delete"
+                                    style="font-size: 25px;cursor:pointer ;color: red;"></i>
+                                <i class="mdi mdi-eye" style="font-size: 25px; cursor:pointer ;color:blue"
+                                    data-toggle="modal" data-target="#details"
+                                    (click)="recuperer(configastreinte.astreinteList)"></i>
+                            </td>
+                            <td></td>
+                            <!-- <td><label class="badge badge-warning">In progress</label></td> -->
+                       
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p1 = $event" class="float-right"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Liste Astreintes par Configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+
+                    <div class="col-md-12">
+
+                        <div class="card p-3 py-4" *ngFor="let configastreinte of configastreinte.astreinteList">
+
+                            <div>
+                                <img *ngIf="configastreinte.collaborateur.sexe==='MEN'"
+                                    src="../../assets/images/man.png" width="50" class="rounded-circle">
+                                <img *ngIf="configastreinte.collaborateur.sexe==='WOMEN'"
+                                    src="../../assets/images/woman.png" width="50" class="rounded-circle">
+
+                            </div>
+                            <div>
+
+                            </div>
+
+                            <div class="text-center mt-3 col-md-12 stretch-card grid-margin">
+
+                                <h5 class="mt-2 mb-0">{{configastreinte.collaborateur.nom}} &nbsp;
+                                    {{configastreinte.collaborateur.prenom}}</h5>
+                                    <td class="text-center">
+                                        <label class="badge" [ngClass]="{' badge-success':configastreinte.status == 'PASSEE',
+                                ' badge-warning':configastreinte.status=== 'EN_ATTENTE',
+                                ' badge-danger':configastreinte.status === 'ANNULEE',
+                                ' badge-info':configastreinte.status=== 'ENCOURS'
+                              }">{{configastreinte.status}}</label>
+                                    </td>
+                            </div>
+                           
+                            <h5 class="mt-2 mb-0">Date Début :{{configastreinte.datedebut}}</h5>
+                            <h5 class="mt-2 mb-0">Date Fin :{{configastreinte.datefin}}</h5>
+                            
+                            <!-- <h5 class="mt-2 mb-0">{{configastreinte.status}}</h5> -->
+                          
+                        
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter Config Astreinte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+
+                    <div class="col-md-12">
+
+                        <div class="card p-3 py-4">
+
+                            <form [formGroup]="addConfigAstreinteForm" (ngSubmit)="addConfigAstreinte()">
+
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="dureeconfigastreinte">Durée Config Astreinte :</label>
+                                        <input type="number" name="dureeconfigastreinte" id="dureeconfigastreinte"
+                                            class="form-control" placeholder="Dureeconfigastreinte"
+                                            formControlName="dureeconfigastreinte"
+                                            value="{{configastreinte.dureeconfigastreinte}}">
+                                        <div
+                                            *ngIf="m['dureeconfigastreinte'].touched && m['dureeconfigastreinte'].invalid">
+                                            <small *ngIf="m['dureeconfigastreinte'].errors?.['required']"
+                                                class="text-danger">dureeconfigastreinte is
+                                                required<br></small>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="periodeastreinte">Periode Astreinte :</label>
+                                        <input type="number" name="periodeastreinte" id="periodeastreinte"
+                                            class="form-control" placeholder="Peride Astreinte"
+                                            formControlName="periodeastreinte"
+                                            value="{{configastreinte.periodeastreinte}}">
+                                        <div *ngIf="m['periodeastreinte'].touched && m['periodeastreinte'].invalid">
+                                            <small *ngIf="m['periodeastreinte'].errors?.['required']"
+                                                class="text-danger">periodeastreinte est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="nombrecollaborateurs">Nb collaborateurs :</label>
+                                        <input type="number" name="nombrecollaborateurs" id="nombrecollaborateurs"
+                                            class="form-control" placeholder="Nb collaborateurs"
+                                            formControlName="nombrecollaborateurs"
+                                            value="{{configastreinte.nombrecollaborateurs}}">
+                                        <div
+                                            *ngIf="m['nombrecollaborateurs'].touched && m['nombrecollaborateurs'].invalid">
+                                            <small *ngIf="m['nombrecollaborateurs'].errors?.['required']"
+                                                class="text-danger">nombrecollaborateurs
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="nombreastreintes">Nombre Astreintes :</label>
+                                        <input type="number" name="nombreastreintes" id="nombreastreintes"
+                                            class="form-control" placeholder="Nb Astreintes"
+                                            formControlName="nombreastreintes"
+                                            value="{{configastreinte.nombreastreintes}}">
+                                        <div *ngIf="m['nombreastreintes'].touched && m['nombreastreintes'].invalid">
+                                            <small *ngIf="m['nombreastreintes'].errors?.['required']"
+                                                class="text-danger">nombreastreintes is required<br></small>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="astreintebycollaborateur">Astreinte par collaborateur :</label>
+                                        <input type="number" name="astreintebycollaborateur"
+                                            id="astreintebycollaborateur" class="form-control"
+                                            placeholder="Astreinte par collaborateur"
+                                            formControlName="astreintebycollaborateur"
+                                            value="{{configastreinte.astreintebycollaborateur}}">
+                                        <div
+                                            *ngIf="m['astreintebycollaborateur'].touched && m['astreintebycollaborateur'].invalid">
+                                            <small *ngIf="m['astreintebycollaborateur'].errors?.['required']"
+                                                class="text-danger">astreintebycollaborateur is required<br></small>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datedebutconfig">Date debut config :</label>
+                                        <input type="date" name="datedebutconfig" id="datedebutconfig"
+                                            class="form-control" placeholder="Date debut config"
+                                            formControlName="datedebutconfig"
+                                            value="{{configastreinte.datedebutconfig}}">
+                                        <div *ngIf="m['datedebutconfig'].touched && m['datedebutconfig'].invalid">
+                                            <small *ngIf="m['datedebutconfig'].errors?.['required']"
+                                                class="text-danger">datedebutconfig est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datedebutconfig">Date fin config :</label>
+                                        <input type="date" name="datefinconfig" id="datefinconfig" class="form-control"
+                                            placeholder="Date fin config" formControlName="datefinconfig"
+                                            value="{{configastreinte.datefinconfig}}">
+                                        <div *ngIf="m['datefinconfig'].touched && m['datefinconfig'].invalid">
+                                            <small *ngIf="m['datefinconfig'].errors?.['required']"
+                                                class="text-danger">datefinconfig est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col">
+
+                                        <input type="submit" value="Ajouter Config Astreinte" class="btn btn-info">
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <!-- <button type="button" class="btn btn-primary">Add</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier Config Astreinte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+
+                    <div class="col-md-12">
+
+                        <div class="card p-3 py-4">
+
+                            <form [formGroup]="updateConfigAstreinteForm" (ngSubmit)="updateConfigAstreinte()">
+
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="dureeconfigastreinte">Durée Config Astreinte :</label>
+                                        <input type="number" name="dureeconfigastreinte" id="dureeconfigastreinte"
+                                            class="form-control" placeholder="Dureeconfigastreinte"
+                                            formControlName="dureeconfigastreinte"
+                                            value="{{configastreinte.dureeconfigastreinte}}">
+                                        <div
+                                            *ngIf="f['dureeconfigastreinte'].touched && f['dureeconfigastreinte'].invalid">
+                                            <small *ngIf="f['dureeconfigastreinte'].errors?.['required']"
+                                                class="text-danger">dureeconfigastreinte is
+                                                required<br></small>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="periodeastreinte">Periode Astreinte :</label>
+                                        <input type="number" name="periodeastreinte" id="periodeastreinte"
+                                            class="form-control" placeholder="Peride Astreinte"
+                                            formControlName="periodeastreinte"
+                                            >
+                                        <div *ngIf="f['periodeastreinte'].touched && f['periodeastreinte'].invalid">
+                                            <small *ngIf="f['periodeastreinte'].errors?.['required']"
+                                                class="text-danger">periodeastreinte est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="nombrecollaborateurs">Nb collaborateurs :</label>
+                                        <input type="number" name="nombrecollaborateurs" id="nombrecollaborateurs"
+                                            class="form-control" placeholder="Nb collaborateurs"
+                                            formControlName="nombrecollaborateurs"
+                                            >
+                                        <div
+                                            *ngIf="f['nombrecollaborateurs'].touched && f['nombrecollaborateurs'].invalid">
+                                            <small *ngIf="f['nombrecollaborateurs'].errors?.['required']"
+                                                class="text-danger">nombrecollaborateurs
+                                                est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="nombreastreintes">Nombre Astreintes :</label>
+                                        <input type="number" name="nombreastreintes" id="nombreastreintes"
+                                            class="form-control" placeholder="Nb Astreintes"
+                                            formControlName="nombreastreintes"
+                                            value="{{configastreinte.nombreastreintes}}">
+                                        <div *ngIf="f['nombreastreintes'].touched && f['nombreastreintes'].invalid">
+                                            <small *ngIf="f['nombreastreintes'].errors?.['required']"
+                                                class="text-danger">nombreastreintes is required<br></small>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="astreintebycollaborateur">Astreinte par collaborateur :</label>
+                                        <input type="number" name="astreintebycollaborateur"
+                                            id="astreintebycollaborateur" class="form-control"
+                                            placeholder="Astreinte par collaborateur"
+                                            formControlName="astreintebycollaborateur"
+                                            value="{{configastreinte.astreintebycollaborateur}}">
+                                        <div
+                                            *ngIf="f['astreintebycollaborateur'].touched && f['astreintebycollaborateur'].invalid">
+                                            <small *ngIf="f['astreintebycollaborateur'].errors?.['required']"
+                                                class="text-danger">astreintebycollaborateur is required<br></small>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datedebutconfig">Date debut config :</label>
+                                        <input type="date" name="datedebutconfig" id="datedebutconfig"
+                                            class="form-control" placeholder="Date debut config"
+                                            formControlName="datedebutconfig"
+                                           >
+                                        <div *ngIf="f['datedebutconfig'].touched && f['datedebutconfig'].invalid">
+                                            <small *ngIf="f['datedebutconfig'].errors?.['required']"
+                                                class="text-danger">datedebutconfig est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="datedebutconfig">Date fin config :</label>
+                                        <input type="date" name="datefinconfig" id="datefinconfig" class="form-control"
+                                            placeholder="Date fin config" formControlName="datefinconfig"
+                                            >
+                                        <div *ngIf="f['datefinconfig'].touched && f['datefinconfig'].invalid">
+                                            <small *ngIf="f['datefinconfig'].errors?.['required']"
+                                                class="text-danger">datefinconfig est
+                                                obligatoire<br></small>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col">
+
+                                        <input type="submit" value="Modifier Config Astreinte" class="btn btn-warning">
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>
