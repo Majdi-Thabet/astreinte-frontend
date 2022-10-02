@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, formatDate } from '@fullcalendar/core';
-import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+// import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 
 defineFullCalendarElement();
 let str = formatDate(new Date(), {
@@ -25,7 +25,7 @@ export class CalendrierAstreinteComponent implements OnInit {
   calendarOptions: CalendarOptions = {
 
 
-    plugins: [dayGridPlugin, resourceTimelinePlugin],
+    plugins: [dayGridPlugin /*,  resourceTimelinePlugin */],
 
     headerToolbar: {
       left: 'prev,next today',
@@ -42,7 +42,7 @@ export class CalendrierAstreinteComponent implements OnInit {
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    schedulerLicenseKey: 'XXX'
+    // schedulerLicenseKey: 'XXX'
 
   };
 

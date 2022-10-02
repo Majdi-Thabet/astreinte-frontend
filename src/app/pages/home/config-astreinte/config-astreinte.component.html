@@ -5,13 +5,13 @@
             <!-- <p class="card-description">
           Add class <code>.table</code>
         </p> -->
-        <div class="container mt-5" style="max-width: 550px;">
+            <div class="container mt-5" style="max-width: 550px;">
 
-            <div class="form-group">
-                <input type="text" class="form-control mb-4" placeholder="Rechercher" [(ngModel)]="inputsearch1"
-                    id="listSearch">
-            </div>
-            <!--           
+                <div class="form-group">
+                    <input type="text" class="form-control mb-4" placeholder="Rechercher" [(ngModel)]="inputsearch1"
+                        id="listSearch">
+                </div>
+                <!--           
         <div class="card mb-1" *ngFor="let collaborateur of collaborateurs | searchFilter: query">
           <div class="card-body">
             <h5 class="card-title">{{collaborateur.nom}}</h5>
@@ -19,7 +19,7 @@
           </div>
         </div> -->
 
-        </div>
+            </div>
             <button type="submit" class="btn btn-primary my-3" style="margin-right: 0.5rem !important;"
                 data-toggle="modal" data-target="#add">Ajouter Config Astreinte</button>
             <div class="table-responsive">
@@ -41,7 +41,8 @@
                     </thead>
                     <tbody>
 
-                        <tr *ngFor="let configastreinte of configastreinteList| searchFilter1: inputsearch1 |paginate:{itemsPerPage: 5,currentPage:p1}" >
+                        <tr
+                            *ngFor="let configastreinte of configastreinteList| searchFilter1: inputsearch1 |paginate:{itemsPerPage: 5,currentPage:p1}">
                             <td>{{ configastreinte.collaborateur.nom}}</td>
                             <td>{{ configastreinte.dureeconfigastreinte}}</td>
                             <td>{{ configastreinte.periodeastreinte}}</td>
@@ -68,7 +69,7 @@
                             </td>
                             <td></td>
                             <!-- <td><label class="badge badge-warning">In progress</label></td> -->
-                       
+
                     </tbody>
                 </table>
                 <pagination-controls (pageChange)="p1 = $event" class="float-right"></pagination-controls>
@@ -110,21 +111,21 @@
 
                                 <h5 class="mt-2 mb-0">{{configastreinte.collaborateur.nom}} &nbsp;
                                     {{configastreinte.collaborateur.prenom}}</h5>
-                                    <td class="text-center">
-                                        <label class="badge" [ngClass]="{' badge-success':configastreinte.status == 'PASSEE',
+                                <td class="text-center">
+                                    <label class="badge" [ngClass]="{' badge-success':configastreinte.status == 'PASSEE',
                                 ' badge-warning':configastreinte.status=== 'EN_ATTENTE',
                                 ' badge-danger':configastreinte.status === 'ANNULEE',
                                 ' badge-info':configastreinte.status=== 'ENCOURS'
                               }">{{configastreinte.status}}</label>
-                                    </td>
+                                </td>
                             </div>
-                           
+
                             <h5 class="mt-2 mb-0">Date Début :{{configastreinte.datedebut}}</h5>
                             <h5 class="mt-2 mb-0">Date Fin :{{configastreinte.datefin}}</h5>
-                            
+
                             <!-- <h5 class="mt-2 mb-0">{{configastreinte.status}}</h5> -->
-                          
-                        
+
+
 
                         </div>
 
@@ -344,8 +345,7 @@
                                         <label for="periodeastreinte">Periode Astreinte :</label>
                                         <input type="number" name="periodeastreinte" id="periodeastreinte"
                                             class="form-control" placeholder="Peride Astreinte"
-                                            formControlName="periodeastreinte"
-                                            >
+                                            formControlName="periodeastreinte">
                                         <div *ngIf="f['periodeastreinte'].touched && f['periodeastreinte'].invalid">
                                             <small *ngIf="f['periodeastreinte'].errors?.['required']"
                                                 class="text-danger">periodeastreinte est
@@ -361,8 +361,7 @@
                                         <label for="nombrecollaborateurs">Nb collaborateurs :</label>
                                         <input type="number" name="nombrecollaborateurs" id="nombrecollaborateurs"
                                             class="form-control" placeholder="Nb collaborateurs"
-                                            formControlName="nombrecollaborateurs"
-                                            >
+                                            formControlName="nombrecollaborateurs">
                                         <div
                                             *ngIf="f['nombrecollaborateurs'].touched && f['nombrecollaborateurs'].invalid">
                                             <small *ngIf="f['nombrecollaborateurs'].errors?.['required']"
@@ -411,8 +410,7 @@
                                         <label for="datedebutconfig">Date debut config :</label>
                                         <input type="date" name="datedebutconfig" id="datedebutconfig"
                                             class="form-control" placeholder="Date debut config"
-                                            formControlName="datedebutconfig"
-                                           >
+                                            formControlName="datedebutconfig">
                                         <div *ngIf="f['datedebutconfig'].touched && f['datedebutconfig'].invalid">
                                             <small *ngIf="f['datedebutconfig'].errors?.['required']"
                                                 class="text-danger">datedebutconfig est
@@ -426,8 +424,7 @@
                                     <div class="form-group col-12">
                                         <label for="datedebutconfig">Date fin config :</label>
                                         <input type="date" name="datefinconfig" id="datefinconfig" class="form-control"
-                                            placeholder="Date fin config" formControlName="datefinconfig"
-                                            >
+                                            placeholder="Date fin config" formControlName="datefinconfig">
                                         <div *ngIf="f['datefinconfig'].touched && f['datefinconfig'].invalid">
                                             <small *ngIf="f['datefinconfig'].errors?.['required']"
                                                 class="text-danger">datefinconfig est
